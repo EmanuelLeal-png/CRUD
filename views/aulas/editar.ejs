@@ -1,0 +1,8 @@
+<h1>Editar Aula</h1>
+<form action="/aulas/editar/<%= aula.id %>" method="POST">
+    <label>Tema: <input type="text" name="tema" value="<%= aula.tema %>" required></label><br>
+    <label>Descrição: <input type="text" name="descricao" value="<%= aula.descricao %>" required></label><br>
+    <label>Data: <input type="date" name="data_aula" value="<%= aula.data_aula.toISOString().slice(0, 10) %>"
+            required></label><br>
+    <button type="submit">Atualizar</button>
+</form>

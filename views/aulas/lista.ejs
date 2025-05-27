@@ -1,0 +1,15 @@
+<h1>Lista de Aulas</h1>
+<a href="/aulas/criar">Nova Aula</a>
+<ul>
+    <% aulas.forEach(aula=> { %>
+        <li>
+            <strong>
+                <%= aula.tema %>
+            </strong> - <%= aula.descricao %> (<%= aula.data_aula.toISOString().slice(0, 10) %>)
+                    <a href="/aulas/editar/<%= aula.id %>">Editar</a> |
+                    <form action="/aulas/deletar/<%= aula.id %>" method="POST" style="display:inline;">
+                        <button type="submit">Excluir</button>
+                    </form>
+        </li>
+        <% }) %>
+</ul>

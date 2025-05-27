@@ -4,7 +4,7 @@ USE CRUD;
 
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
+    usuarioname VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'user') NOT NULL
 );
@@ -22,4 +22,10 @@ CREATE TABLE produtos (
     quantidade INT NOT NULL,
     categoria INT NOT NULL,
     FOREIGN KEY (categoria) REFERENCES categorias(id)
+);
+CREATE TABLE aulas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tema VARCHAR(255) NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
+    data_aula data
 );
