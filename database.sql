@@ -26,6 +26,7 @@ CREATE TABLE produtos (
 CREATE TABLE aulas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tema VARCHAR(255) NOT NULL,
-    descricao VARCHAR(255) NOT NULL,
-    data_aula data
+    descricao TEXT NOT NULL,
+    data_aula DATE NOT NULL,
+    horario TIME
 );

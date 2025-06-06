@@ -1,8 +1,23 @@
 <h1>Editar Aula</h1>
-<form action="/aulas/editar/<%= aula.id %>" method="POST">
-    <label>Tema: <input type="text" name="tema" value="<%= aula.tema %>" required></label><br>
-    <label>Descrição: <input type="text" name="descricao" value="<%= aula.descricao %>" required></label><br>
-    <label>Data: <input type="date" name="data_aula" value="<%= aula.data_aula.toISOString().slice(0, 10) %>"
-            required></label><br>
-    <button type="submit">Atualizar</button>
+
+<form action="/aulas/<%= aula.id %>" method="POST">
+    <div class="form-group">
+        <label>Tema:</label>
+        <input type="text" name="tema" value="<%= aula.tema %>" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label>Descrição:</label>
+        <input type="text" name="descricao" value="<%= aula.descricao %>" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label>Data:</label>
+        <input type="date" name="data_aula" value="<%= aula.data_aula.toISOString().slice(0, 10) %>"
+            class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label>Horário:</label>
+        <input type="time" name="horario" value="<%= aula.horario || '' %>" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Atualizar</button>
+    <a href="/aulas" class="btn btn-secondary">Cancelar</a>
 </form>

@@ -1,0 +1,19 @@
+<h1>Detalhes da Aula</h1>
+
+<p><strong>ID:</strong>
+    <%= aula.id %>
+</p>
+<p><strong>Tema:</strong>
+    <%= aula.tema %>
+</p>
+<p><strong>Descrição:</strong>
+    <%= aula.descricao %>
+</p>
+<p><strong>Data da Aula:</strong>
+    <%= aula.data_aula.toISOString().slice(0, 10) %>
+</p>
+<p><strong>Horário:</strong>
+    <%= aula.horario || 'Não informado' %>
+</p>
+
+<a href="/aulas" class="btn btn-primary">Voltar</a>

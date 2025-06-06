@@ -1,0 +1,46 @@
+<h1>Lista de Aulas</h1>
+
+<a href="/aulas/new" class="btn btn-success mb-3">Nova Aula</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tema</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (aulas.length===0) { %>
+            <tr>
+                <td colspan="5" class="text-center">Nenhuma aula cadastrada.</td>
+            </tr>
+            <% } else { %>
+                <% aulas.forEach(aula=> { %>
+                    <tr>
+                        <td>
+                            <%= aula.id %>
+                        </td>
+                        <td>
+                            <%= aula.tema %>
+                        </td>
+                        <td>
+                            <%= aula.descricao %>
+                        </td>
+                        <td>
+                            <%= aula.data_aula.toISOString().slice(0, 10) %>
+                        </td>
+                        <td>
+                            <a href="/aulas/<%= aula.id %>" class="btn btn-sm btn-primary">View</a>
+                            <a href="/aulas/<%= aula.id %>/edit" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="/aulas/<%= aula.id %>/delete" method="POST" style="display: inline;">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+                        <% } %>
+    </tbody>
+</table>
