@@ -1,76 +1,82 @@
 const Aula = require("../models/aulaModel");
 
 const aulaController = {
-  criarAula: (req, res) => {
+  criarAula: async (req, res) => {
     const novaAula = req.body;
-    Aula.create(novaAula, (err, id) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ erro: "Erro ao criar aula", detalhes: err });
-      }
+    try {
+      await Aula.create(req.body);
       res.redirect("/aulas");
-    });
+    } catch (err) {
+      res.status(500).json({ erro: "Erro ao criar aula", detalhes: err.message });
+    }
   },
 
-  listarAulas: (req, res) => {
-    Aula.getAll((err, aulas) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ erro: "Erro ao buscar aulas", detalhes: err });
-      }
+  listarAulas: async (req, res) => {
+    try {
+      const aulas = await Aula.findAll();
       res.render("aulas/index", { aulas });
-    });
+    } catch (err) {
+      res.status(500).json({ erro: "Erro ao buscar aulas", detalhes: err.message });
+    }
   },
 
   exibirFormularioCriacao: (req, res) => {
     res.render("aulas/criar");
   },
 
-  exibirFormularioEdicao: (req, res) => {
+  exibirFormularioEdicao: async (req, res) => {
     const id = req.params.id;
-    Aula.findById(id, (err, aula) => {
-      if (err || !aula) {
+    try {
+      const aula = await Aula.findByPk(req.params.id);
+      if (!aula) {
         return res.status(404).send("Aula não encontrada");
       }
       res.render("aulas/editar", { aula });
-    });
+    } catch (err) {
+      res.status(500).json({ erro: err.message });
+    }
   },
 
-  exibirDetalhesAula: (req, res) => {
+  exibirDetalhesAula: async (req, res) => {
     const id = req.params.id;
-    Aula.findById(id, (err, aula) => {
-      if (err || !aula) {
+    try {
+      const aula = await Aula.findByPk(req.params.id);
+      if (!aula) {
         return res.status(404).send("Aula não encontrada");
       }
       res.render("aulas/show", { aula });
-    });
+    } catch (err) {
+      res.status(500).json({ erro: err.message });
+    }
   },
 
-  atualizarAula: (req, res) => {
+  atualizarAula: async (req, res) => {
     const id = req.params.id;
     const dadosAtualizados = req.body;
-    Aula.update(id, dadosAtualizados, (err) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ erro: "Erro ao atualizar aula", detalhes: err });
+    try {
+      const aula = await Aula.findByPk(req.params.id);
+      if (!aula) {
+        return res.status(404).send("Aula não encontrada");
       }
+      await aula.update(req.body);
       res.redirect("/aulas");
-    });
+    } catch (err) {
+      res.status(500).json({ erro: "Erro ao atualizar aula", detalhes: err.message });
+    }
   },
 
-  deletarAula: (req, res) => {
+  deletarAula: async (req, res) => {
     const id = req.params.id;
-    Aula.delete(id, (err) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ erro: "Erro ao deletar aula", detalhes: err });
+    try {
+      const aula = await Aula.findByPk(req.params.id);
+      if (!aula) {
+        return res.status(404).send("Aula não encontrada");
       }
+      await aula.destroy();
       res.redirect("/aulas");
-    });
+    } catch (err) {
+      res.status(500).json({ erro: "Erro ao deletar aula", detalhes: err.message });
+    }
   },
 };
 

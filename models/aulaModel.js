@@ -1,55 +1,28 @@
-const db = require('../config/db');
 
-const Aula = {
-    create: (aula, callback) => {
-        const query = 'INSERT INTO aulas (tema, descricao, data_aula) VALUES (?, ?, ?)';
-        db.query(query, [aula.tema, aula.descricao, aula.data_aula], (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results.insertId);
-        });
-    },
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
 
-    findById: (id, callback) => {
-        const query = 'SELECT * FROM aulas WHERE id = ?';
-        db.query(query, [id], (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results[0]);
-        });
+const Aula = sequelize.define('Aula', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
     },
-
-    update: (id, aula, callback) => {
-        const query = 'UPDATE aulas SET tema = ?, descricao = ?, data_aula = ? WHERE id = ?';
-        db.query(query, [aula.tema, aula.descricao, aula.data_aula, id], (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results);
-        });
+    tema: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-
-    delete: (id, callback) => {
-        const query = 'DELETE FROM aulas WHERE id = ?';
-        db.query(query, [id], (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results);
-        });
+    descricao: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-
-    getAll: (callback) => {
-        const query = 'SELECT * FROM aulas';
-        db.query(query, (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results);
-        });
-    },
-};
+    data_aula: {
+        type: DataTypes.DATE,
+        allowNull: false
+    }
+}, {
+    tableName: 'aulas',
+    timestamps: false
+});
 
 module.exports = Aula;
